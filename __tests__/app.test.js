@@ -3,6 +3,7 @@ const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 const Order = require('../lib/models/Order');
+jest.mock('../lib/utils/aws-ses.js');
 
 describe('amazon_ses routes', () => {
   beforeEach(() => {
@@ -28,4 +29,19 @@ it('creates a new order in the database and sends an email', () => {
     });
   });
 });
+
+it('GETS all orders fro the DB', () => {
+  return request(app)
+  .get('/api/v1/orders')
+  .then((res) => {
+    expect(res.body).toEqual([{
+      id: '1',
+      email: 'stephen.tamiesie@gmail.com',
+      quantity: 10,
+    }]);
+  });
+});
+
+
+
 });
