@@ -30,7 +30,7 @@ it('creates a new order in the database and sends an email', () => {
   });
 });
 
-it('GETS all orders fro the DB', () => {
+it('GETS all orders from the DB', () => {
   return request(app)
   .get('/api/v1/orders')
   .then((res) => {
@@ -39,6 +39,18 @@ it('GETS all orders fro the DB', () => {
       email: 'stephen.tamiesie@gmail.com',
       quantity: 10,
     }]);
+  });
+});
+
+it('GETS a single order by ID from the DB', () => {
+  return request(app)
+  .get('/api/v1/orders/1')
+  .then((res) => {
+    expect(res.body).toEqual({
+      id: '1',
+      email: 'stephen.tamiesie@gmail.com',
+      quantity: 10,
+    });
   });
 });
 
