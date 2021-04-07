@@ -68,4 +68,16 @@ it('UPDATES a single order by ID in the DB', () => {
   });
 });
 
+it('DELETES a single order by ID from the DB', () => {
+  return request(app)
+  .delete('/api/v1/orders/1')
+  .then((res) => {
+    expect(res.body).toEqual({
+      id: '1',
+      email: 'stephen.tamiesie@gmail.com',
+      quantity: 10,
+    });
+  });
+});
+
 });
