@@ -3,6 +3,7 @@ const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 const Order = require('../lib/models/Order');
+// const OrderService = require('../lib/services/OrderService');
 jest.mock('../lib/utils/aws-ses.js');
 
 describe('amazon_ses routes', () => {
@@ -54,6 +55,17 @@ it('GETS a single order by ID from the DB', () => {
   });
 });
 
-
+it('UPDATES a single order by ID in the DB', () => {
+  return request(app)
+  .put('/api/v1/orders/1')
+  .send({ quantity: 5 })
+  .then((res) => {
+    expect(res.body).toEqual({
+      id: '1',
+      email: 'stephen.tamiesie@gmail.com',
+      quantity: 5,
+    });
+  });
+});
 
 });
